@@ -57,7 +57,15 @@ class Login(APIView):
                 return HttpResponseRedirect(redirect_to='https://voting-school47.herokuapp.com/start')
         except:
             raise
-
+    def post(self, request):
+        id = request.data['id']
+        try:
+            voter = Voter.objects.get(id)
+            serializer = VoterSerializer(voter)
+            return Response(serializer.data)
+        except:
+            data = {"error": "does not exist"}
+            return Response(data)
 
 # class GetUser(APIView):
 #     def post(self, request):
