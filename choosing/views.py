@@ -24,8 +24,8 @@ class Choosing(APIView):
     
     def post(self, request):
         try:
-            voter = Voter.objects.get(request.data["voter_id"])
-            candidate = Candidate.objects.get(request.data["candidate_id"])
+            voter = Voter.objects.get(idVK = request.data["voter_id"])
+            candidate = Candidate.objects.get(id = request.data["candidate_id"])
             candidate.vote = candidate.vote + 1
             candidate.save()
             voter.is_vote = True
