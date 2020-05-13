@@ -52,9 +52,9 @@ class Login(APIView):
                 serializer = VoterSerializer(data = data)
                 serializer.is_valid(raise_exception=True)
                 serializer.save()
-                return HttpResponseRedirect(redirect_to='https://voting-school47.herokuapp.com/voting?id={}'.format(str(user['id'])))
+                return HttpResponseRedirect(redirect_to='https://voting-school47.herokuapp.com/start?id={}'.format(str(user['id'])))
             else:
-                return HttpResponseRedirect(redirect_to='https://voting-school47.herokuapp.com/voting')
+                return HttpResponseRedirect(redirect_to='https://voting-school47.herokuapp.com/start')
         except:
             raise
 
