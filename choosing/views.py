@@ -31,9 +31,11 @@ class Choosing(APIView):
             voter.is_vote = True
             voter.vote = candidate
             voter.save()
-            return Response(data = {"status": "ok"})
+            candidates = Candidate.objects.all()
+            serializer = CandidateSerializer(candidates, many=True)
+            return Response(data = serializer.data)
         except:
-            return Response(data={"status": "bad"})
+            return Response(data={"error": "bad"})
 
             
 
