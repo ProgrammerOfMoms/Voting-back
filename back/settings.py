@@ -163,6 +163,6 @@ SOCIAL_AUTH_POSTGRES_JSONFIELD = True
 SOCIAL_AUTH_VK_OAUTH2_KEY = '7462552'
 SOCIAL_AUTH_VK_OAUTH2_SECRET = 'YsUnt09qtssCUvP6YGBr'
 # SOCIAL_AUTH_USER_MODEL = AUTH_USER_MODEL
-REDIRECT_URI ='https://voting-school47.herokuapp.com/user/login'
+REDIRECT_URI ='https://voting-school47-back.herokuapp.com/user/login'
 # SOCIAL_AUTH_REDIRECT_URL
 GROUP_ID = "47sosh.chita"
