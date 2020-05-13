@@ -14,29 +14,16 @@ from choosing.models import Voter
 
 import random
 import string
+import datetime
 
 def randomString(stringLength=8):
     letters = string.ascii_lowercase
     return ''.join(random.choice(letters) for i in range(stringLength))
 
-# from .models import Candidate, Account
-# from .serializers import CandidateSerializer
-
 def auth(token):
     vk = vk_api.VkApi(token=token)
     vk._auth_token()
     return vk
-
-import datetime
-
-def set_cookie(response, key, value, days_expire = 10):
-  if days_expire is None:
-    max_age = 365 * 24 * 60 * 60  #one year
-  else:
-    max_age = days_expire * 24 * 60 * 60 
-  expires = datetime.datetime.strftime(datetime.datetime.utcnow() + datetime.timedelta(seconds=max_age), "%a, %d-%b-%Y %H:%M:%S GMT")
-  response.set_cookie(key, value, max_age=max_age, expires=expires, domain=settings.SESSION_COOKIE_DOMAIN, secure=settings.SESSION_COOKIE_SECURE or None)
-
 
 class Login(APIView):
     def get(self, request):
@@ -65,9 +52,7 @@ class Login(APIView):
                 serializer = VoterSerializer(data = data)
                 serializer.is_valid(raise_exception=True)
                 serializer.save()
-                response =  HttpResponseRedirect(redirect_to='https://voting-school47.herokuapp.com/voting?id={}'.format(str(user['id'])))
-                set_cookie(response, id, str(user['id']))
-                return response
+                return HttpResponseRedirect(redirect_to='https://voting-school47.herokuapp.com/voting?id={}'.format(str(user['id'])))
             else:
                 return HttpResponseRedirect(redirect_to='https://voting-school47.herokuapp.com/voting')
         except:
