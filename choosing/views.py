@@ -28,7 +28,7 @@ class Choosing(APIView):
             candidate = Candidate.objects.get(id = request.data["candidate_id"])
             candidate.votes = candidate.votes + 1
             candidate.save()
-            voter.is_vote = True
+            voter.is_voted = True
             voter.vote = candidate
             voter.save()
             candidates = Candidate.objects.all()
