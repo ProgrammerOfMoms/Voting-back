@@ -62,7 +62,7 @@ class Login(APIView):
     def post(self, request):
         id = request.data['id']
         try:
-            voter = Voter.objects.get(id)
+            voter = Voter.objects.get(idVK = id)
             serializer = VoterSerializer(voter)
             return Response(serializer.data)
         except:
