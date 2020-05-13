@@ -23,38 +23,19 @@ class Choosing(APIView):
         return Response(data = serializer.data, status = status.HTTP_200_OK)
     
     def post(self, request):
-        ip = get_client_ip(request)
         try:
-            voter = Voter.objects.get(voter_ip = ip)
-            candidates = Candidate.objects.all()
-            serializer = CandidateSerializer(candidates, many=True)
-            data = serializer.data
-            res = {"status": "already_voted"}
-            res.update({"candidates": data})
-            print(res)
-            return Response(data=data)
-        except:         
-            candidate_id = request.data['id']
-            try:
-                candidate = Candidate.objects.get(id=candidate_id)
-                candidate.votes = candidate.votes + 1
-                candidate.save()
-                Voter.objects.create(voter_ip=ip, isVote=True)
-                candidates = Candidate.objects.all()
-                serializer = CandidateSerializer(candidates, many=True)
-                data = serializer.data
-                res = {"status": "voted"}
-                res.update({"candidates": data})
-                print(res)
-                return Response(data=res)
-            except:
-                candidates = Candidate.objects.all()
-                serializer = CandidateSerializer(candidates, many=True)
-                data = serializer.data
-                res = {"status": "bad id"}
-                res.update({"candidates": data})
-                print(res)
-                return Response(data=data)
+            voter = Voter.objects.get(request.data["voter_id"])
+            candidate = Candidate.objects.get(request.data["candidate_id"])
+            candidate.vote = candidate.vote + 1
+            candidate.save()
+            voter.is_vote = True
+            voter.vote = candidate
+            voter.save()
+            return Response(data = {"status": "ok"})
+        except:
+            return Response(data={"status": "bad"})
+
+            
 
         
 
