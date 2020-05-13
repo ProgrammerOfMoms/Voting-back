@@ -31,6 +31,8 @@ class Login(APIView):
             root_url = "https://oauth.vk.com/access_token?"
             if "code" in request.GET:
                 code = request.GET["code"]
+            else:
+                return Response({"data": "bad"})
             res = requests.get(root_url+"client_id="+settings.SOCIAL_AUTH_VK_OAUTH2_KEY+"&client_secret="+settings.SOCIAL_AUTH_VK_OAUTH2_SECRET+"&redirect_uri="+settings.REDIRECT_URI+"&code="+code)
             content = res.json()
             if "error" in content:
