@@ -71,6 +71,3 @@ class Login(APIView):
         except:
             data = {"error": "does not exist"}
             return Response(data)
-
-# class GetUser(APIView):
-#     def post(self, request):
