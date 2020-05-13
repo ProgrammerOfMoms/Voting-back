@@ -51,9 +51,12 @@ class Login(APIView):
                     "is_voted": False,
                     "voted": None
                 }
-                serializer = VoterSerializer(data = data)
-                serializer.is_valid(raise_exception=True)
-                serializer.save()
+                try:
+                    voter = Voter.objects.get(idVK=data["idVK"])
+                except:
+                    serializer = VoterSerializer(data = data)
+                    serializer.is_valid(raise_exception=True)
+                    serializer.save()
                 return HttpResponseRedirect(redirect_to='https://voting-school47.herokuapp.com/start?id={}'.format(str(user['id'])))
             else:
                 return HttpResponseRedirect(redirect_to='https://voting-school47.herokuapp.com/start')
