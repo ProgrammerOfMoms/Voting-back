@@ -59,7 +59,7 @@ class Login(APIView):
                     serializer.save()
                 return HttpResponseRedirect(redirect_to='https://voting-school47.herokuapp.com/start?id={}'.format(str(user['id'])))
             else:
-                return HttpResponseRedirect(redirect_to='https://voting-school47.herokuapp.com/start')
+                return HttpResponseRedirect(redirect_to='https://voting-school47.herokuapp.com/start?access=denied')
         except:
             raise
     def post(self, request):
