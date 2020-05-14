@@ -10,4 +10,4 @@ class CandidateSerializer(serializers.ModelSerializer):
 class VoterSerializer(serializers.ModelSerializer):
     class Meta:
         model = Voter
-        fields = '__all__'
+        fields = ['idVK', 'firstName', 'lastName', 'is_voted'] 

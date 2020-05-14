@@ -91,6 +91,4 @@ class Filter(APIView):
                 response.append(voter)
         serializer = VoterSerializer(response, many=True)
         return Response(data = serializer.data)
-
-
         
