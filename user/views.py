@@ -71,3 +71,26 @@ class Login(APIView):
         except:
             data = {"error": "does not exist"}
             return Response(data)
+
+
+def userAuth():
+    vk_session = vk_api.VkApi('+79144366441', 'azsxdcfr132')
+    vk_session.auth()
+
+    vk = vk_session.get_api()
+    return vk
+
+class Filter(APIView):
+    def get(self, request):
+        voters = Voters.objects.all()
+        vk = userAuth()
+        group_members = vk.method("groups.getMembers", {"group_id": settings.GROUP_ID})["items"]
+        response = []
+        for voter in voters:
+            if int(voter.idVK) not in group_members:
+                response.append(voter)
+        serializer = VoterSerializer(response, many=True)
+        return Response(data = serializer.data)
+                
+
+        
