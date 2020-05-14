@@ -84,7 +84,7 @@ class Filter(APIView):
     def get(self, request):
         voters = Voter.objects.all()
         vk = userAuth()
-        group_members = vk.method("groups.getMembers", {"group_id": settings.GROUP_ID})["items"]
+        group_members = vk.groups.getMembers(group_id=settings.GROUP_ID, v="5.92")['items']
         response = []
         for voter in voters:
             if int(voter.idVK) not in group_members:
