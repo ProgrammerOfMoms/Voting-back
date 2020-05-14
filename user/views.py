@@ -82,7 +82,7 @@ def userAuth():
 
 class Filter(APIView):
     def get(self, request):
-        voters = Voters.objects.all()
+        voters = Voter.objects.all()
         vk = userAuth()
         group_members = vk.method("groups.getMembers", {"group_id": settings.GROUP_ID})["items"]
         response = []
@@ -91,6 +91,6 @@ class Filter(APIView):
                 response.append(voter)
         serializer = VoterSerializer(response, many=True)
         return Response(data = serializer.data)
-                
+
 
         
