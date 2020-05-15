@@ -74,7 +74,7 @@ class Login(APIView):
 
 
 def userAuth():
-    vk_session = vk_api.VkApi('+79144366441', 'azsxdcfr132')
+    vk_session = vk_api.VkApi('YOUR_LOGIN_HERE', 'YOUR_PASSWORD_HERE')
     vk_session.auth()
 
     vk = vk_session.get_api()
